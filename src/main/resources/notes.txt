@@ -1,0 +1,7 @@
+https://github.com/jesuino/java-ml-projects/tree/master/utilities/yolo-dl4j
+https://pjreddie.com/darknet/yolo/
+https://github.com/klevis/AutonomousDriving
+https://dzone.com/articles/java-autonomous-driving-car-detection-1
+https://www.coursera.org/lecture/convolutional-neural-networks/object-localization-nEeJM
+
+End of life...
