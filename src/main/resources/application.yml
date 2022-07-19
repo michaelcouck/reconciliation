@@ -5,7 +5,10 @@ server:
 
 scheduling: true
 
-maas.fileSystemDataSets: ./resources/data/1000-bank-transaction-records.csv,1000-bank-transaction-records-mission.csv
+maas:
+  data-directory: ./resources/data/
+  deleted-directory: ${maas.data-directory}/deleted
+  fileSystemDataSets: 1000-bank-transaction-records.csv,1000-bank-transaction-records-mission.csv
 
 logging:
   config: classpath:logback.xml

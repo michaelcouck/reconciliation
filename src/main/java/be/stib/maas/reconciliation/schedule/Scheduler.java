@@ -1,17 +1,18 @@
 package be.stib.maas.reconciliation.schedule;
 
+import be.stib.maas.reconciliation.Config;
 import be.stib.maas.reconciliation.Pipeline;
 import be.stib.maas.reconciliation.inflow.FetchDatasetFromFileSystem;
+import be.stib.maas.reconciliation.purge.Cleanup;
 import be.stib.maas.reconciliation.reconcile.ReconcileTransactions;
+import be.stib.maas.reconciliation.report.CreateReport;
 import be.stib.maas.reconciliation.transform.TransformDataset;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * @author Michael Couck
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Slf4j
 @EnableScheduling
-@Component(value = "ronin-scheduler")
+@Component(value = "reconciliation-scheduler")
 @ConditionalOnProperty(name = "scheduling", havingValue = "true")
 public class Scheduler {
 
@@ -29,8 +30,12 @@ public class Scheduler {
     private static final long THIRTY_SECONDS = FIFTEEN_SECONDS * 2;
     private static final long ONE_MINUTE = THIRTY_SECONDS * 2;
 
-    @Value("{maas.fileSystemDataSets}")
-    private List<String> fileSystemDataSets;
+    private final Config config;
+
+    @Autowired
+    public Scheduler(final Config config) {
+        this.config = config;
+    }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Scheduled(initialDelay = ONE_MINUTE, fixedRate = ONE_MINUTE)
@@ -40,7 +45,9 @@ public class Scheduler {
         pipeline.registerHandler(new FetchDatasetFromFileSystem());
         pipeline.registerHandler(new TransformDataset());
         pipeline.registerHandler(new ReconcileTransactions());
-        pipeline.processHandlers(fileSystemDataSets);
+        pipeline.registerHandler(new CreateReport());
+        pipeline.registerHandler(new Cleanup(config));
+        pipeline.processHandlers(config.getFilePaths());
     }
 
 }

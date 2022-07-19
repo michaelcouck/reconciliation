@@ -7,6 +7,7 @@ import lombok.extern.java.Log;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Michael Couck
@@ -14,7 +15,6 @@ import java.util.List;
  */
 @Log
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class FetchDatasetFromFileSystem<I, O> implements Handler<List<String>, List<File>> {
 
     /**

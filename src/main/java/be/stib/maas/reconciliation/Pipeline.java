@@ -12,7 +12,6 @@ public class Pipeline<I, O> {
 
     private final List<Handler<I, O>> handlers;
 
-    @SuppressWarnings("unused")
     public Pipeline() {
         handlers = new ArrayList<>();
     }
