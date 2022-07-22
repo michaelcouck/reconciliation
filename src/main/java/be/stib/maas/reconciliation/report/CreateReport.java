@@ -26,11 +26,11 @@ import java.util.function.Consumer;
  */
 @Log
 @NoArgsConstructor
-public class CreateReport<I, O> implements Handler<List<Dataset>, Void> {
+public class CreateReport<I, O> implements Handler<List<Dataset>, List<Dataset>> {
 
     @Override
     @SuppressWarnings("Convert2Lambda")
-    public Void process(final List<Dataset> input) {
+    public List<Dataset> process(final List<Dataset> input) {
         TemplateEngine engine = getTemplateEngine();
         input.forEach(new Consumer<Dataset>() {
             @SneakyThrows
@@ -41,10 +41,10 @@ public class CreateReport<I, O> implements Handler<List<Dataset>, Void> {
                 engine.process("unmatched-transactions", context, stringWriter);
                 String html = stringWriter.toString();
                 log.info(html);
-                FileUtils.write(new File("unmatched-transactions-report.html"), html, Charset.defaultCharset());
+                FileUtils.write(new File(dataset.getName() + "-unmatched-transactions-report.html"), html, Charset.defaultCharset());
             }
         });
-        return null;
+        return input;
     }
 
     private TemplateEngine getTemplateEngine() {
