@@ -1,0 +1,26 @@
+[
+  {
+    "BookingId": "delijn_ca29d4a7-69ed-47d6-906d-4ad0eed6fe12",
+    "ProviderId": "delijn",
+    "UserId": "e9bd5192-0751-11ed-bb64-2f273a1f2711",
+    "PurchasedAtDate": "2022-10-04",
+    "PurchasedAtTime": "09:15:04",
+    "GrossTransactionalAmount": "17.0",
+    "Amount": "16.04",
+    "VatAmount": "0.96",
+    "VatRatePercent": "6.0",
+    "ProductId": "4010"
+  },
+  {
+    "BookingId": "nmbs_eb779c24-454a-49a9-9d8d-4daab4c6a7ab",
+    "ProviderId": "nmbs",
+    "UserId": "9394f70c-0107-11ed-b32d-771bbb18a580",
+    "PurchasedAtDate": "2022-10-21",
+    "PurchasedAtTime": "11:28:54",
+    "GrossTransactionalAmount": "5.7",
+    "Amount": "5.38",
+    "VatAmount": "0.32",
+    "VatRatePercent": "6.0",
+    "ProductId": "b259809e-45fb-4048-99d2-31ea21a62dba_40000071"
+  }
+]

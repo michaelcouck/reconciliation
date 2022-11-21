@@ -27,17 +27,22 @@ public class Cleanup<I, O> implements Handler<Object, Void> {
     @Override
     @SuppressWarnings("Convert2Lambda")
     public Void process(final Object input) {
-        config.getFileSystemDataSets().forEach(new Consumer<String>() {
-            @Override
-            @SneakyThrows
-            public void accept(final String fileName) {
-                File source = new File(config.getDataDirectory(), fileName);
-                File target = new File(config.getDeletedDirectory(), fileName);
-                log.info("Moving file : " + source + ", to : " + target);
-                FileUtils.moveFile(source, target);
-                Thread.sleep(250);
-            }
-        });
+        if (config.isDeleteFiles()) {
+            config.getFileSystemDataSets().forEach(new Consumer<String>() {
+                @Override
+                @SneakyThrows
+                public void accept(final String fileName) {
+                    File source = new File(config.getDataDirectory(), fileName);
+                    File target = new File(config.getDeletedDirectory(), fileName);
+                    log.info("Moving input file : " + source + ", to : " + target);
+                    FileUtils.moveFile(source, target);
+                    // We must wait because file systems are write behind!
+                    Thread.sleep(250);
+                }
+            });
+        } else {
+            log.info("Not not moving input files");
+        }
         return null;
     }
 

@@ -21,6 +21,8 @@ public class Config {
     private String dataDirectory;
     @Value("{maas.deleted-directory}")
     private String deletedDirectory;
+    @Value("{maas.delete-files:false}")
+    private boolean deleteFiles;
 
     @Value("{maas.fileSystemDataSets}")
     private List<String> fileSystemDataSets;

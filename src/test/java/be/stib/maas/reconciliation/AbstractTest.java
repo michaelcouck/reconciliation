@@ -15,7 +15,7 @@ public abstract class AbstractTest {
         for (int i = size; i > 0; i--) {
             Transaction transaction = getTransaction(
                     new Date(RandomUtils.nextInt()),
-                    RandomStringUtils.random(8),
+                    RandomStringUtils.random(8, "abcdefghijklmnopqrstuvwxyz"),
                     RandomUtils.nextInt());
             transactions.add(transaction);
         }
@@ -23,7 +23,7 @@ public abstract class AbstractTest {
     }
 
     Transaction getTransaction(final Date date, final String description, final int amount) {
-        return Transaction.builder().date(date).description(description).amount(amount).build();
+        return Transaction.builder().PurchasedAtDate(date).ProductId(description).GrossTransactionalAmount(amount).build();
     }
 
 }

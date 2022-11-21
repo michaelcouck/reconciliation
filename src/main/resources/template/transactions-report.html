@@ -6,12 +6,12 @@
 </head>
 <body>
 <div>Date: <div th:text="${date}"></div></div>
-<div>Unmatched transactions for: <div th:text="${dataset.name}"></div></div>
+<div>Transactions for: <div th:text="${dataset.name}"></div></div>
 
 <table>
     <tr>
         <th>Date</th>
-        <th>Description</th>
+        <th>Product id</th>
         <th>Amount</th>
     </tr>
     <tr th:each="transaction : ${transactions}">

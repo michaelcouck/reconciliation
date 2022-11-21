@@ -46,7 +46,7 @@ public class TransformDataset<I, O> implements Handler<List<File>, List<Dataset>
                         Date date = simpleDateFormat.parse(segments[0]);
                         String description = segments[1];
                         double amount = Double.parseDouble(segments[2]);
-                        Transaction transaction = Transaction.builder().date(date).description(description).amount((int) amount).build();
+                        Transaction transaction = Transaction.builder().PurchasedAtDate(date).ProductId(description).GrossTransactionalAmount((int) amount).build();
                         dataset.getTransactions().add(transaction);
                     }
                 });

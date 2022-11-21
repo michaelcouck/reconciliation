@@ -5,7 +5,7 @@ import be.stib.maas.reconciliation.Pipeline;
 import be.stib.maas.reconciliation.inflow.FetchDatasetFromFileSystem;
 import be.stib.maas.reconciliation.purge.Cleanup;
 import be.stib.maas.reconciliation.reconcile.ReconcileTransactions;
-import be.stib.maas.reconciliation.report.CreateReport;
+import be.stib.maas.reconciliation.report.UnmatchedTransactionsReportGenerator;
 import be.stib.maas.reconciliation.report.GenerateCSVReport;
 import be.stib.maas.reconciliation.transform.TransformDataset;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class Scheduler {
         pipeline.registerHandler(new FetchDatasetFromFileSystem());
         pipeline.registerHandler(new TransformDataset());
         pipeline.registerHandler(new ReconcileTransactions());
-        pipeline.registerHandler(new CreateReport());
+        pipeline.registerHandler(new UnmatchedTransactionsReportGenerator());
         pipeline.registerHandler(new GenerateCSVReport());
         pipeline.registerHandler(new Cleanup(config));
         pipeline.processHandlers(config.getFilePaths());

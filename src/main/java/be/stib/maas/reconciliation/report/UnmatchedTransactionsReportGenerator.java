@@ -8,16 +8,11 @@ import lombok.extern.java.Log;
 import org.apache.commons.io.FileUtils;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.io.File;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Consumer;
 
 /**
@@ -26,7 +21,7 @@ import java.util.function.Consumer;
  */
 @Log
 @NoArgsConstructor
-public class CreateReport<I, O> implements Handler<List<Dataset>, List<Dataset>> {
+public class UnmatchedTransactionsReportGenerator<I, O> implements Handler<List<Dataset>, List<Dataset>> {
 
     @Override
     @SuppressWarnings("Convert2Lambda")
@@ -45,25 +40,6 @@ public class CreateReport<I, O> implements Handler<List<Dataset>, List<Dataset>>
             }
         });
         return input;
-    }
-
-    private TemplateEngine getTemplateEngine() {
-        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
-        resolver.setTemplateMode(TemplateMode.HTML);
-        resolver.setPrefix("template/");
-        resolver.setSuffix(".html");
-        TemplateEngine engine = new TemplateEngine();
-        engine.setTemplateResolver(resolver);
-        return engine;
-    }
-
-    private Context getContext(final Dataset dataset) {
-        Context context = new Context(Locale.ENGLISH);
-        String now = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
-        context.setVariable("date", now);
-        context.setVariable("dataset", dataset);
-        context.setVariable("transactions", dataset.getTransactions());
-        return context;
     }
 
 }
