@@ -23,7 +23,7 @@ public abstract class AbstractTest {
     }
 
     Transaction getTransaction(final Date date, final String description, final int amount) {
-        return Transaction.builder().PurchasedAtDate(date).ProductId(description).GrossTransactionalAmount(amount).build();
+        return Transaction.builder().PurchasedAtDate(date.toString()).ProductId(description).GrossTransactionalAmount(amount).build();
     }
 
 }

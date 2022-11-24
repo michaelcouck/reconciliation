@@ -18,7 +18,7 @@ public interface Handler<I, O> {
 
     O process(final I input);
 
-    default public TemplateEngine getTemplateEngine() {
+    default TemplateEngine getTemplateEngine() {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setPrefix("template/");
@@ -28,7 +28,7 @@ public interface Handler<I, O> {
         return engine;
     }
 
-    default public Context getContext(final Dataset dataset) {
+    default Context getContext(final Dataset dataset) {
         Context context = new Context(Locale.ENGLISH);
         String now = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
         context.setVariable("date", now);

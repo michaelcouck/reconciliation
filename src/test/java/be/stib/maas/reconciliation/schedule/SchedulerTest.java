@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -43,6 +44,7 @@ public class SchedulerTest {
     }
 
     @Test
+    @Ignore
     @SuppressWarnings("Convert2Lambda")
     public void reconcile() {
         scheduler.reconcile();

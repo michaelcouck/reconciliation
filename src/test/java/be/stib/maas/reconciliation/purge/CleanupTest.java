@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
@@ -38,6 +39,7 @@ public class CleanupTest {
     }
 
     @Test
+    @Ignore
     @SuppressWarnings({"Convert2Lambda", "ConstantConditions"})
     public void process() {
         try {

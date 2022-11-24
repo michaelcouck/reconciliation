@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--suppress HtmlUnknownTag -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <title>E-Commerce report></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+        div {
+            padding: 10px;
+            font-family: Arial,serif;
+        }
+        #wrapper {
+            width: 1100px;
+            height: 650px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        #right {
+            text-align: right;
+        }
+        i {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        textarea {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="right">
+        STIB/MIVB<br>
+        63 Rue de Colonies<br>
+        Brussels<br>
+        1000<br>
+    </div>
+    <div>
+        M-Commerce Statement for <i th:text="${dataset.name}"><!--De Lijn--></i>
+    </div>
+    <div th:utext="${dataset.address}"></div>
+    <div>
+        <label>
+            Start : <textarea rows="1" cols="25" th:text="${dataset.startDate}" disabled><!--01-10-2022--></textarea>
+            End : <textarea rows="1" cols="25" th:text="${dataset.endDate}" disabled><!--31-10-2022--></textarea>
+        </label>
+    </div>
+    <th:block th:each="msp : ${dataset.productTotals}">
+        <div>
+        <label>
+            <textarea th:text="${msp.key}" rows="1" cols="15" disabled></textarea><br><!--NMBS, De Lijn-->
+            <th:block th:each="productTotals : ${msp.value}">
+                <textarea rows="1" cols="20" th:each="total : ${productTotals}" th:text="${total.key} + ${total.value}"></textarea>
+            </th:block>
+        </label>
+        </div>
+    </th:block>
+</div>
+
+</body>
+</html>

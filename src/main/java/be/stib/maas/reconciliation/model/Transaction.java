@@ -2,8 +2,6 @@ package be.stib.maas.reconciliation.model;
 
 import lombok.*;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @Builder
@@ -11,12 +9,16 @@ import java.util.Date;
 @EqualsAndHashCode
 public class Transaction implements Comparable<Transaction> {
 
+    public static final String PRICE = "Sales: ";
+    public static final String VAT = "VAT: ";
+    public static final String TOTAL = "Total: ";
+
     private String BookingId;
     private String ProviderId;
     private String UserId;
 
-    private Date PurchasedAtDate;
-    private Date PurchasedAtTime;
+    private String PurchasedAtDate;
+    private String PurchasedAtTime;
     private double GrossTransactionalAmount;
     private double Amount;
     private double VatAmount;
