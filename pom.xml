@@ -13,13 +13,16 @@
     <packaging>jar</packaging>
 
     <name>reconciliation</name>
-    <description>Reconciliation micro service for reconciliation functionality</description>
+    <description>Reconciliation micro service for reports</description>
 
     <properties>
         <java-version>8</java-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-version>2.0.5.RELEASE</spring-version>
+
+        <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.1.1</thymeleaf-layout-dialect.version>
 
         <java-opts>-Xms512m -Xmx2048m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=.</java-opts>
     </properties>
@@ -51,6 +54,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
             <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>2.7.5</version>
         </dependency>
 
         <!-- This is for JAXB dependency if you were wondering. -->
@@ -87,11 +95,11 @@
             <artifactId>unirest-java</artifactId>
             <version>1.4.9</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.peterphi.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>3.0.12.1</version>
-        </dependency>
+        </dependency>-->
 
         <!-- For test -->
         <dependency>

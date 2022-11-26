@@ -1,9 +1,9 @@
 server:
   port: 8080
   servlet:
-    context-path: /reconciliation
+    context-path: /report
 
-scheduling: true
+scheduling: false
 
 maas:
   data-directory: ./resources/data/

@@ -23,7 +23,7 @@ import java.util.*;
 public class TransactionsReportGeneratorTest extends AbstractTest {
 
     @Spy
-    private TransactionsReportGenerator<Dataset, String> createReport;
+    private TransactionsReportGenerator createReport;
 
     @Test
     public void process() throws IOException {

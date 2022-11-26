@@ -5,6 +5,7 @@ import be.stib.maas.reconciliation.model.Dataset;
 import be.stib.maas.reconciliation.model.Transaction;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -20,8 +21,9 @@ import java.util.function.Consumer;
  * @since 21-11-2022
  */
 @Slf4j
+@Service
 @NoArgsConstructor
-public class TransactionsReportGenerator<I, O> implements Handler<Dataset, String> {
+public class TransactionsReportGenerator implements Handler<Dataset, String> {
 
     @Override
     public String process(final Dataset dataset) {

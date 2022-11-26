@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<!--suppress HtmlUnknownAttribute, XmlUnboundNsPrefix, HtmlFormInputWithoutLabel -->
+<html lang="en" class="default-style">
+
+<head>
+    <title>Commercial Report</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <link rel="icon" type="image/png" href="images/favicon.png"/>
+
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js">
+        import axios from 'axios';
+    </script>
+</head>
+<body>
+
+<script>
+    function generateReport() {
+        axios.post('/report/commercial-report', {
+            msp: 'nmbs',
+            startDate: '01-10-2022',
+            endDate: '31-10-2022'
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+</script>
+
+<form>
+    MSP: <input name="msp" type="text"><br>
+    Start date: <input id="startDate" name="startDate" type="date"> End date: <input id="endDate" name="endDate" type="date"><br>
+    <input type="button" value="Generate" onclick="generateReport()">
+</form>
+
+</body>
+</html>
