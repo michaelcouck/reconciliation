@@ -4,28 +4,37 @@
 <head>
     <title>E-Commerce report></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         div {
             padding: 10px;
-            font-family: Arial,serif;
+            font-family: Arial, serif;
         }
+
         #wrapper {
             width: 1100px;
             height: 650px;
             border: 1px solid black;
             border-collapse: collapse;
         }
+
         #right {
             text-align: right;
         }
+
         i {
             font-size: 14px;
             font-weight: bold;
         }
+
         textarea {
             margin-right: 10px;
         }
     </style>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script type="javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
@@ -42,18 +51,17 @@
     <div th:utext="${dataset.address}"></div>
     <div>
         <label>
-            Start : <textarea rows="1" cols="25" th:text="${dataset.startDate}" disabled><!--01-10-2022--></textarea>
-            End : <textarea rows="1" cols="25" th:text="${dataset.endDate}" disabled><!--31-10-2022--></textarea>
+            Start date: <input th:value="${dataset.startDate}" size="35px" disabled/>
+            End date: <input th:value="${dataset.endDate}" size="35px" disabled/>
         </label>
     </div>
     <th:block th:each="msp : ${dataset.productTotals}">
         <div>
-        <label>
-            <textarea th:text="${msp.key}" rows="1" cols="15" disabled></textarea><br><!--NMBS, De Lijn-->
-            <th:block th:each="productTotals : ${msp.value}">
-                <textarea rows="1" cols="20" th:each="total : ${productTotals}" th:text="${total.key} + ${total.value}"></textarea>
-            </th:block>
-        </label>
+            <label>
+                <th:block th:each="productTotals : ${msp.value}">
+                    <textarea rows="1" cols="20" th:each="total : ${productTotals}" th:text="${total.key} + ${total.value}"></textarea>
+                </th:block>
+            </label>
         </div>
     </th:block>
 </div>
