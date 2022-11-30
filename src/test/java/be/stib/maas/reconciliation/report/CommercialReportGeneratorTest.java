@@ -18,26 +18,30 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
 
+/**
+ * @author Michael Couck
+ * @since 21-11-2022
+ */
 @Slf4j
 @RunWith(MockitoJUnitRunner.class)
-public class TransactionsReportGeneratorTest extends AbstractTest {
+public class CommercialReportGeneratorTest extends AbstractTest {
 
     @Spy
-    private TransactionsReportGenerator createReport;
+    private CommercialReportGenerator commercialReportGenerator;
 
     @Test
     public void process() throws IOException {
         Dataset dataset = getDataset();
-        String htmlTransactionsReport = createReport.process(dataset);
+        String htmlTransactionsReport = commercialReportGenerator.process(dataset);
         Assert.assertTrue(htmlTransactionsReport.contains("Total:"));
         Assert.assertTrue(htmlTransactionsReport.contains("34.0"));
         FileUtils.write(new File(dataset.getName() + ".html"), htmlTransactionsReport, Charset.defaultCharset());
     }
 
     @Test
-    public void calculateProductTotals() throws IOException {
+    public void setTotals() throws IOException {
         Dataset dataset = getDataset();
-        createReport.calculateProductTotals(dataset);
+        commercialReportGenerator.setTotals(dataset);
         log.info("Product totals : {}", dataset.getProductTotals());
 
         Map<String, Double> nmbsTotals = dataset.getProductTotals().get("nmbs");
