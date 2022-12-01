@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/style.default.premium.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="dist/dropzone.css" />
+    <link rel="stylesheet" href="vendor/dropzone/dropzone.css" />
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.ico">
 
@@ -150,8 +150,8 @@
             <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
             <li><a href="#tablesDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-grid"></i>Reports </a>
                 <ul id="tablesDropdown" class="collapse list-unstyled ">
-                    <li><a href="#" onclick="setContent('report', 'fragment/commercial-report.html')">Commercial report</a></li>
-                    <li><a href="#" onclick="setContent('report', 'fragment/reconciliation-report.html')">Reconciliation report</a></li>
+                    <li><a href="#" onclick="setContent('report-form', 'fragment/commercial-report.html')">Commercial report</a></li>
+                    <li><a href="#" onclick="setContent('report-form', 'fragment/reconciliation-report.html')">Reconciliation report</a></li>
                 </ul>
             </li>
             <li><a href="#chartsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-bar-chart"></i>Statistics </a>
@@ -165,7 +165,7 @@
                     <li><a href="forms.html">Basic forms</a></li>
                     <li><a href="forms-advanced.html">Advanced forms</a></li>
                     <li><a href="forms-autocomplete.html">Autocomplete</a></li>
-                    <li><a href="forms-dropzone.html">Files upload</a></li>
+                    <!--<li><a href="forms-dropzone.html">Files upload</a></li>-->
                     <li><a href="forms-texteditor.html">Text editor</a></li>
                     <li><a href="forms-validation.html">Validation</a></li>
                 </ul>
@@ -202,8 +202,17 @@
         </div>
         <section class="no-padding-top no-padding-bottom">
             <div class="container-fluid">
-                <div id="report" class="row">
-
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <div class="block" id="report-form"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div>
+                            <div class="block" id="report-result"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -292,7 +301,8 @@
                 </div>
             </div>
         </section>
-        <!--<section class="no-padding-bottom">
+
+        <section class="no-padding-bottom" style="visibility: hidden">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6">
@@ -342,8 +352,8 @@
                     </div>
                 </div>
             </div>
-        </section>-->
-        <!--<section class="margin-bottom-sm">
+        </section>
+        <section class="margin-bottom-sm" style="visibility: hidden">
             <div class="container-fluid">
                 <div class="row d-flex align-items-stretch">
                     <div class="col-lg-4">
@@ -396,8 +406,8 @@
                     </div>
                 </div>
             </div>
-        </section>-->
-        <!--<section>
+        </section>
+        <section style="visibility: hidden">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
@@ -429,7 +439,8 @@
                     </div>
                 </div>
             </div>
-        </section>-->
+        </section>
+
         <footer class="footer">
             <div class="footer__block block no-margin-bottom">
                 <div class="container-fluid text-center">
@@ -456,7 +467,7 @@
 
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script src="vendor/dropzone/dropzone.js"></script>
-<script src="js/forms-dropzone.js"></script>
+<!--<script src="js/forms-dropzone.js"></script>-->
 
 <script src="js/custom.js"></script>
 

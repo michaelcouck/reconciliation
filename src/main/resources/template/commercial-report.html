@@ -1,70 +1,43 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--suppress HtmlUnknownTag -->
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-    <title>Commercial report></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-        div {
-            padding: 10px;
-            font-family: Arial, serif;
-        }
+<!-- Horizontal Form-->
 
-        #wrapper {
-            width: 1100px;
-            height: 650px;
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-
-        #right {
-            text-align: right;
-        }
-
-        i {
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        textarea {
-            margin-right: 10px;
-        }
-    </style>
-
-    <!-- JavaScript Bundle with Popper -->
-    <script type="javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-
-<div id="wrapper">
-    <div id="right">
+<div class="title"><strong class="d-block">Commerce report</strong>
+    <span
+        class="d-block">
+        Accounts payable<br>
         STIB/MIVB<br>
         63 Rue de Colonies<br>
         Brussels<br>
-        1000<br>
-    </div>
-    <div>
-        M-Commerce Statement for <i th:text="${dataset.name}"><!--De Lijn--></i>
-    </div>
-    <div th:utext="${dataset.address}"></div>
-    <div>
-        <label>
-            Start date: <input th:value="${dataset.startDate}" size="35px" disabled/>
-            End date: <input th:value="${dataset.endDate}" size="35px" disabled/>
-        </label>
-    </div>
-    <th:block th:each="msp : ${dataset.productTotals}">
-        <div>
-            <label>
-                <th:block th:each="productTotals : ${msp.value}">
-                    <textarea rows="1" cols="20" th:each="total : ${productTotals}" th:text="${total.key} + ${total.value}"></textarea>
-                </th:block>
-            </label>
-        </div>
-    </th:block>
-</div>
+        1000<br><br>
 
-</body>
-</html>
+        M-Commerce Statement for <i th:text="${dataset.name}"><!--De Lijn--></i><br><br>
+        <i th:utext="${dataset.address}"></i>
+    </span>
+</div>
+<div class="block-body">
+    <form id="none" name="none" class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Start date</label>
+            <div class="col-sm-9">
+                <input th:value="${dataset.startDate}" type="text" class="form-control form-control-success" disabled/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">End date</label>
+            <div class="col-sm-9">
+                <input th:value="${dataset.endDate}" type="text" class="form-control form-control-success" disabled/>
+            </div>
+        </div>
+        <th:block th:each="msp : ${dataset.productTotals}">
+            <th:block th:each="productTotals : ${msp.value}">
+                <th:block th:each="total : ${productTotals}">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label" th:text="${total.key}"></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-success" disabled th:value="${total.value}"/>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </th:block>
+    </form>
+</div>
