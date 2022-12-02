@@ -15,7 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.function.Consumer;
 
 @Slf4j
 @RestController
@@ -27,6 +28,8 @@ public class ReportGeneratorService {
 
     private final CommercialReportGenerator transactionsReportGenerator;
     private final ReconciliationReportGenerator reconciliationReportGenerator;
+
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     public ReportGeneratorService(final CommercialReportGenerator transactionsReportGenerator, final ReconciliationReportGenerator reconciliationReportGenerator) {
@@ -45,7 +48,6 @@ public class ReportGeneratorService {
             @RequestParam("startDate") final String startDate,
             @RequestParam("endDate") final String endDate) throws ParseException {
         // TODO : Get the data from Trafi API for these dates
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Dataset dataset = DATASET_GENERATOR.getDataset(msp, simpleDateFormat.parse(startDate), simpleDateFormat.parse(endDate));
         String reportHtml = transactionsReportGenerator.process(dataset);
         return new ResponseEntity<>(reportHtml, HttpStatus.OK);
@@ -57,16 +59,16 @@ public class ReportGeneratorService {
             @RequestParam("msp") final String msp,
             @RequestParam("startDate") final String startDate,
             @RequestParam("endDate") final String endDate,
-            @RequestParam("ingenico-file") final MultipartFile multipartFormData) throws IOException {
-        log.info("File data : {}", new String(multipartFormData.getBytes()));
+            @RequestParam("ingenico-file") final MultipartFile multipartFormData) throws IOException, ParseException {
+        // log.info("File data : {}", new String(multipartFormData.getBytes()));
         // TODO : Get the data from Trafi API for these dates
-        // Dataset datasetOne = DATASET_GENERATOR.getDataset(msp, startDate, endDate);
+        Dataset datasetOne = DATASET_GENERATOR.getDataset(msp, simpleDateFormat.parse(startDate), simpleDateFormat.parse(endDate));
         // TODO : Build the dataset from the Ingenico data
-        // Dataset datasetTwo = DATASET_GENERATOR.getDataset(reportRequest.getMsp(), reportRequest.getStartDate(), reportRequest.getEndDate());
-        // String[] reportsHtml = reconciliationReportGenerator.process(new Dataset[] {datasetOne, datasetTwo});
-        // return new ResponseEntity<>(Arrays.toString(reportsHtml), HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Dataset datasetTwo = DATASET_GENERATOR.getDataset("ingenico", simpleDateFormat.parse(startDate), simpleDateFormat.parse(endDate));
+        String[] reportsHtml = reconciliationReportGenerator.process(new Dataset[]{datasetOne, datasetTwo});
+        final StringBuilder reportHtml = new StringBuilder();
+        Arrays.stream(reportsHtml).forEach(reportHtml::append);
+        return new ResponseEntity<>(reportHtml.toString(), HttpStatus.OK);
     }
-
 
 }

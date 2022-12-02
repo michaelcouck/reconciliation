@@ -1,28 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-<head>
-    <title>Reconciliation Report</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<div>Date: <div th:text="${date}"></div></div>
-<div>Unmatched transactions for: <div th:text="${dataset.name}"></div></div>
+<!-- Horizontal Form-->
+<div class="title"><strong class="d-block">Reconciliation report</strong>
+    <span
+        class="d-block">
+        Accounts payable<br>
+        STIB/MIVB<br>
+        63 Rue de Colonies<br>
+        Brussels<br>
+        1000<br><br>
 
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th>Amount</th>
-    </tr>
-    <tr th:each="transaction : ${transactions}">
-        <!--suppress ThymeleafVariablesResolveInspection -->
-        <td th:text="${transaction.PurchasedAtDate}">Date</td>
-        <!--suppress ThymeleafVariablesResolveInspection -->
-        <td th:text="${transaction.ProductId}">Description</td>
-        <!--suppress ThymeleafVariablesResolveInspection -->
-        <td th:text="${transaction.GrossTransactionalAmount}">amount</td>
-    </tr>
-</table>
+        Unmatched transactions for <i th:text="${dataset.name}"><!--De Lijn | Ingenico--></i><br><br>
+        <i th:utext="${dataset.address}"></i>
+    </span>
+</div>
+<div class="block-body">
+    <form id="none" name="none" class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Start date</label>
+            <div class="col-sm-9">
+                <input th:value="${dataset.startDate}" type="text" class="form-control form-control-success" disabled/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">End date</label>
+            <div class="col-sm-9">
+                <input th:value="${dataset.endDate}" type="text" class="form-control form-control-success" disabled/>
+            </div>
+        </div>
 
-</body>
-</html>
+        <th:block th:each="transaction : ${transactions}">
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label" th:text="${transaction.BookingId}"></label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control form-control-success" disabled th:value="${transaction.PurchasedAtDate}"/>
+                    <input type="text" class="form-control form-control-success" disabled th:value="${transaction.ProductId}"/>
+                    <input type="text" class="form-control form-control-success" disabled th:value="${transaction.GrossTransactionalAmount}"/>
+                </div>
+            </div>
+        </th:block>
+
+        <th:block th:each="msp : ${dataset.productTotals}">
+            <th:block th:each="productTotals : ${msp.value}">
+                <th:block th:each="total : ${productTotals}">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label" th:text="${total.key}"></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-success" disabled th:value="${total.value}"/>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </th:block>
+    </form>
+</div>

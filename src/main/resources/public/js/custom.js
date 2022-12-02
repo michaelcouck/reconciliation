@@ -7,8 +7,7 @@ function setContent(element, page) {
 function setElementContent(element, content) {
     const section = $("#" + element);
     section.children().remove();
-    // section.innerHTML = content;
-    $('#' + element).html('\'' + content + '\'');
+    $('#' + element).html(content);
 }
 
 function generateCommercialReport() {
@@ -18,7 +17,6 @@ function generateCommercialReport() {
         formData,
         {headers: {'Content-Type': 'multipart/form-data', 'Accept': 'text/html'}}
     ).then(function (response) {
-        console.log("Response data : " + response.data);
         setElementContent("report-result", response.data);
     }).catch(function (error) {
         console.log(error);
@@ -32,9 +30,7 @@ function generateReconciliationReport() {
         formData,
         {headers: {'Content-Type': 'multipart/form-data'}}
     ).then(function (response) {
-        /*let reportWindow = window.open("about:blank", "hello", "width=1140,height=720");
-        reportWindow.document.write(response.data);*/
-        setContent("report-result", response.data);
+        setElementContent("report-result", response.data);
     }).catch(function (error) {
         console.log(error);
     });

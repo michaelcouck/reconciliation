@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.Charset;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class DATASET_GENERATOR {
@@ -20,7 +22,7 @@ public class DATASET_GENERATOR {
         return Dataset.builder()
                 .name(msp)
                 .address("123 Fake Street, Springfield, 4321")
-                .transactions(getTransaction(100))
+                .transactions(getTransaction(10))
                 .startDate(startDate)
                 .endDate(endDate)
                 .build();
@@ -29,23 +31,37 @@ public class DATASET_GENERATOR {
     @SuppressWarnings("SameParameterValue")
     public static List<Transaction> getTransaction(final int numberOfTransactions) {
         String alphabet = "abcdefg";
-        String randomString = RandomStringUtils.random(6, alphabet);
-        double randomDouble = BigDecimal.valueOf(new Random().nextDouble())
-                .setScale(2, RoundingMode.HALF_UP)
-                .doubleValue();
+
         List<Transaction> transactions = new ArrayList<>();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2022, Calendar.DECEMBER, 1, 5, 28, 56);
+        Date date = calendar.getTime();
         for (int i = 0; i < numberOfTransactions; i++) {
+
+            double amount = BigDecimal.valueOf(new Random().nextDouble())
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
+            double vatPercent = BigDecimal.valueOf(new Random().nextDouble())
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
+
+            double vatAmount = amount * vatPercent / 100;
+            double grossTransactionalAmount = amount + vatAmount;
+
             Transaction transaction = Transaction.builder()
-                    .VatAmount(randomDouble / 2)
-                    .VatRatePercent((randomDouble / (randomDouble / 2)) * 100)
-                    .Amount(randomDouble)
-                    .GrossTransactionalAmount(randomDouble)
-                    .BookingId(RandomStringUtils.random(6, alphabet))
-                    .ProductId(randomString)
-                    .ProviderId(randomString)
-                    .PurchasedAtDate(randomString)
-                    .PurchasedAtTime(randomString)
-                    .UserId(randomString)
+                    .UserId("user-id-" + RandomStringUtils.random(3, alphabet))
+                    .ProviderId("provider-id-nmbs-or-ingenico")
+
+                    .VatRatePercent(vatPercent)
+                    .Amount(amount)
+                    .VatAmount(vatAmount)
+                    .GrossTransactionalAmount(grossTransactionalAmount)
+
+                    .BookingId("booking-id-" + RandomStringUtils.random(3, alphabet))
+                    .ProductId("product-id-" + RandomStringUtils.random(3, alphabet))
+                    .PurchasedAtDate(dateFormat.format(date))
+                    .PurchasedAtTime(dateFormat.format(date))
                     .build();
             transactions.add(transaction);
         }

@@ -1,4 +1,45 @@
 <!-- Horizontal Form-->
+<div class="title"><strong class="d-block">Reconciliation report</strong><span class="d-block">Report reconciling sales
+            from MSPs/PTOs with Ingenico transactions.</span></div>
+<div class="block-body">
+    <form id="reconciliation-report-form" name="reconciliation-report-form" class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">MSP/PTO</label>
+            <div class="col-sm-9">
+                <input id="msp" name="msp" type="text" placeholder="NMBS" class="form-control
+                                                form-control-success"><small class="form-text">The exact identifier of the MSP/PTO.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Start date</label>
+            <div class="col-sm-9">
+                <input id="startDate" name="startDate" type="date" class="form-control
+                                                form-control-warning"><small class="form-text">The start date, from 00:00 midnight of that date.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">End date</label>
+            <div class="col-sm-9">
+                <input id="endDate" name="endDate" type="date"
+                       class="form-control form-control-warning"><small class="form-text">The end date, to 23:59:59 midnight of that date.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Ingenico data</label>
+            <div class="col-sm-9">
+                <input id="ingenico-file" name="ingenico-file" type="file" />
+                <small class="form-text">The Ingenico CSV transactions file.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <input type="button" onclick="generateReconciliationReport()" value="Generate" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--
 <div class="col-lg-6">
     <div class="block">
         <div class="title"><strong class="d-block">Reconciliation report</strong><span class="d-block">Report reconciling sales
@@ -43,4 +84,4 @@
             </form>
         </div>
     </div>
-</div>
+</div>-->
