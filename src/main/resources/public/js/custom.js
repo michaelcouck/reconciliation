@@ -20,6 +20,7 @@ function generateCommercialReport() {
         setElementContent("report-result", response.data);
     }).catch(function (error) {
         console.log(error);
+        alert('Error from server : ' + error);
     });
 }
 
@@ -33,5 +34,6 @@ function generateReconciliationReport() {
         setElementContent("report-result", response.data);
     }).catch(function (error) {
         console.log(error);
+        alert('Error from server : ' + error);
     });
 }

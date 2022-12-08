@@ -1,4 +1,4 @@
-<!-- Horizontal Form-->
+<!--suppress HtmlFormInputWithoutLabel -->
 <div class="title"><strong class="d-block">Reconciliation report</strong>
     <span
         class="d-block">
@@ -12,6 +12,9 @@
         <i th:utext="${dataset.address}"></i>
     </span>
 </div>
+
+<hr>
+
 <div class="block-body">
     <form id="none" name="none" class="form-horizontal">
         <div class="form-group row">
@@ -27,16 +30,21 @@
             </div>
         </div>
 
+        <hr>
+        <br>
+
         <th:block th:each="transaction : ${transactions}">
             <div class="form-group row">
-                <label class="col-sm-3 form-control-label" th:text="${transaction.BookingId}"></label>
+                <label class="col-sm-3 form-control-label" th:text="'Transaction id: ' + ${transaction.BookingId}"></label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-success" disabled th:value="${transaction.PurchasedAtDate}"/>
-                    <input type="text" class="form-control form-control-success" disabled th:value="${transaction.ProductId}"/>
-                    <input type="text" class="form-control form-control-success" disabled th:value="${transaction.GrossTransactionalAmount}"/>
+                    <input type="text" class="form-control form-control-success" disabled th:value="'Date: ' + ${transaction.PurchasedAtDate}"/>
+                    <input type="text" class="form-control form-control-success" disabled th:value="'Product: ' + ${transaction.ProductId}"/>
+                    <input type="text" class="form-control form-control-success" disabled th:value="'Amount: ' + ${transaction.GrossTransactionalAmount}"/>
                 </div>
             </div>
         </th:block>
+
+        <hr>
 
         <th:block th:each="msp : ${dataset.productTotals}">
             <th:block th:each="productTotals : ${msp.value}">
@@ -52,3 +60,8 @@
         </th:block>
     </form>
 </div>
+
+<hr>
+<hr>
+<hr>
+<br>

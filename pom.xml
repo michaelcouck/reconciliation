@@ -100,11 +100,6 @@
             <artifactId>unirest-java</artifactId>
             <version>1.4.9</version>
         </dependency>
-        <!--<dependency>
-            <groupId>com.peterphi.thymeleaf</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>3.0.12.1</version>
-        </dependency>-->
 
         <!-- For test -->
         <dependency>
@@ -142,6 +137,7 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <argLine>${java-opts}</argLine>
                 </configuration>
             </plugin>
             <plugin>

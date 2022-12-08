@@ -39,15 +39,13 @@ public class DATASET_GENERATOR {
         Date date = calendar.getTime();
         for (int i = 0; i < numberOfTransactions; i++) {
 
-            double amount = BigDecimal.valueOf(new Random().nextDouble())
-                    .setScale(2, RoundingMode.HALF_UP)
-                    .doubleValue();
-            double vatPercent = BigDecimal.valueOf(new Random().nextDouble())
-                    .setScale(2, RoundingMode.HALF_UP)
-                    .doubleValue();
+            double amount = new Random().nextInt(50);
+            double vatPercent = new Random().nextInt(21);
 
             double vatAmount = amount * vatPercent / 100;
-            double grossTransactionalAmount = amount + vatAmount;
+            double grossTransactionalAmount = BigDecimal.valueOf(amount + vatAmount)
+                    .setScale(2, RoundingMode.HALF_UP)
+                    .doubleValue();
 
             Transaction transaction = Transaction.builder()
                     .UserId("user-id-" + RandomStringUtils.random(3, alphabet))
