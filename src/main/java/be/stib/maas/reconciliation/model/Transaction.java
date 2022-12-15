@@ -1,13 +1,19 @@
 package be.stib.maas.reconciliation.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+/**
+ * @author Michael Couck
+ * @since 15-07-2022
+ */
 @Getter
 @Setter
 @Builder
-@ToString
-@EqualsAndHashCode
-public class Transaction implements Comparable<Transaction> {
+public class Transaction {
 
     public static final String PRICE = "Sales: ";
     public static final String VAT = "VAT: ";
@@ -25,8 +31,6 @@ public class Transaction implements Comparable<Transaction> {
     private double VatRatePercent;
     private String ProductId;
 
-    @Override
-    public int compareTo(final Transaction that) {
-        return Integer.compare(this.hashCode(), that.hashCode());
-    }
+    private List<Ticket> Tickets;
+
 }

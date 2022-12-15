@@ -1,0 +1,34 @@
+<!--suppress HtmlFormInputWithoutLabel -->
+<div class="title"><strong class="d-block">Transaction report</strong><span class="d-block">Report containing & iterating all sales
+            from MSPs/PTOs with Ingenico transactions with specific date ranges. Be careful with the dates, start small and enlarge the
+            range, there could be potentially millions of transactions</span></div>
+<div class="block-body">
+    <form id="transaction-report-form" name="transaction-report-form" class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">MSP/PTO</label>
+            <div class="col-sm-9">
+                <input id="msp" name="msp" type="text" placeholder="NMBS" class="form-control
+                                                form-control-success"><small class="form-text">The exact identifier of the MSP/PTO.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Start date</label>
+            <div class="col-sm-9">
+                <input id="startDate" name="startDate" type="date" class="form-control
+                                                form-control-warning"><small class="form-text">The start date, from 00:00 midnight of that date.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">End date</label>
+            <div class="col-sm-9">
+                <input id="endDate" name="endDate" type="date"
+                       class="form-control form-control-warning"><small class="form-text">The end date, to 23:59:59 midnight of that date.</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+                <input type="button" onclick="generateTransactionReport()" value="Generate" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+</div>

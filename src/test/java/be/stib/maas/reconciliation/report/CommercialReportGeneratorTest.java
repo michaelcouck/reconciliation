@@ -35,7 +35,10 @@ public class CommercialReportGeneratorTest extends AbstractTest {
         String htmlTransactionsReport = commercialReportGenerator.process(dataset);
         Assert.assertTrue(htmlTransactionsReport.contains("Total:"));
         Assert.assertTrue(htmlTransactionsReport.contains("34.0"));
-        FileUtils.write(new File(dataset.getName() + ".html"), htmlTransactionsReport, Charset.defaultCharset());
+        File target = FILE.findFileRecursively(new File("."), "target");
+        if (target != null) {
+            FileUtils.write(new File(target, dataset.getName() + ".html"), htmlTransactionsReport, Charset.defaultCharset());
+        }
     }
 
     @Test

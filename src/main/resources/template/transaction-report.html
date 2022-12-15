@@ -1,0 +1,133 @@
+<!--suppress HtmlFormInputWithoutLabel, ThymeleafVariablesResolveInspection -->
+<div class="title"><strong class="d-block">Transaction report</strong><br><br>
+    <span class="d-block">
+        Accounts payable<br>
+        STIB/MIVB<br>
+        63 Rue de Colonies<br>
+        Brussels<br>
+        1000<br><br>
+
+        Sales & transactions for <i th:text="${dataset.name}"><!--De Lijn | Ingenico--></i><br><br>
+        <i th:utext="${dataset.address}"></i>
+    </span>
+</div>
+
+<hr>
+
+<div class="block-body">
+    <form id="none" name="none" class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">Start date</label>
+            <div class="col-sm-9">
+                <input th:value="${dataset.startDate}" type="text" class="form-control form-control-success" disabled/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 form-control-label">End date</label>
+            <div class="col-sm-9">
+                <input th:value="${dataset.endDate}" type="text" class="form-control form-control-success" disabled/>
+            </div>
+        </div>
+
+        <hr>
+        <br>
+
+        <div class="card mb-0">
+            <div class="card-header">
+                <h3 class="h4 mb-0">Transactions & tickets</h3>
+            </div>
+            <div class="card-body pt-0">
+                <div class="table-responsive">
+                    <table class="table mb-0 table-striped table-hover table-sm">
+                        <thead>
+                        <tr>
+                            <th>Issuer</th>
+
+                            <th>Booking ID</th>
+                            <th>Purchase date</th>
+                            <th>Gross transaction amount</th>
+
+                            <th>Card/client ID</th>
+                            <th>Product</th>
+                            <th>Product description</th>
+                            <th>Total count</th>
+                            <th>Remaining</th>
+                            <th>Before consumption</th>
+                            <th>After consumption</th>
+                            <th>Value consumed</th>
+                            <th>Valid from</th>
+                            <th>Valid to</th>
+                            <th>First validated on</th>
+                            <th>Validation DB</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="transaction : ${transactions}">
+                        <tr th:each="ticket : ${transaction.Tickets}">
+                            <td th:text="${ticket.Issuer}"></td>
+
+                            <td th:text="${transaction.BookingId}"></td>
+                            <td th:text="${transaction.PurchasedAtDate}"></td>
+                            <td th:text="${transaction.GrossTransactionalAmount}"></td>
+
+                            <td th:text="${ticket.CardId}"></td>
+                            <td th:text="${ticket.ProductId}"></td>
+                            <td th:text="${ticket.ProductDescription}"></td>
+                            <td th:text="${ticket.TotalCount}"></td>
+                            <td th:text="${ticket.Remaining}"></td>
+                            <td th:text="${ticket.TicketValueBeforeConsumption}"></td>
+                            <td th:text="${ticket.TicketValueAfterConsumption}"></td>
+                            <td th:text="${ticket.ConsumptionPrice}"></td>
+                            <td th:text="${ticket.ValidFrom}"></td>
+                            <td th:text="${ticket.ValidTo}"></td>
+                            <td th:text="${ticket.FirstValidatedOn}"></td>
+                            <td th:text="${ticket.InsertionDateInValidationDB}"></td>
+                        </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <th:block th:each="msp : ${dataset.productTotals}">
+            <th:block th:each="productTotals : ${msp.value}">
+                <th:block th:each="total : ${productTotals}">
+                    <div class="form-group row">
+                        <label class="col-sm-3 form-control-label" th:text="${total.key}"></label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-success" disabled th:value="${total.value}"/>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </th:block>
+    </form>
+</div>
+
+<!--
+SAM : Some internal number created for Stib, we don't have that for PTOs
+SAM counter : Counter for the ticket, will create one, maybe.
+Contract issuer: NMBS
+
+Contract validity : of the ticket, i.e. from and until when the ticket can be used, correct!
+
+Validation DB : No validation DB, validated on several devices, including at NMBS, and visually with De Lijn. No, not relevant for us.
+
+BMC : Contract identifier, product type, correct.
+
+10) Ticket value before : Available for De Lijn, and Brupass, Go Pass for NMBS probably not available, sorry... Will look... Can't promise
+11) Ticket price after consumption :
+
+Contract price : Price of the ticket and vat already available.
+
+Card id(Mobib number? Double check.) : No card used, single tickets, multi tickets for De Lijn. Client identifier. We don't have this, sorry! Lol :)
+
+Payment
+Transaction
+Sale - line items
+Product - line items
+Evolution of product, ticket???
+-->

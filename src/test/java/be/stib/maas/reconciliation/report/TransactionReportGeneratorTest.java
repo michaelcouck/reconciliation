@@ -14,28 +14,26 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Date;
 
 /**
  * @author Michael Couck
- * @since 21-11-2022
+ * @since 15-12-2022
  */
 @Slf4j
 @RunWith(MockitoJUnitRunner.class)
-public class ReconciliationReportGeneratorTest extends AbstractTest {
+public class TransactionReportGeneratorTest extends AbstractTest {
 
     @Spy
-    private ReconciliationReportGenerator reconciliationReportGenerator;
+    private TransactionReportGenerator transactionReportGenerator;
 
     @Test
     public void process() throws IOException {
-        Dataset datasetOne = DATASET_GENERATOR.getDataset("delijn", new Date(), new Date());
-        Dataset datasetTwo = DATASET_GENERATOR.getDataset("ingenico", new Date(), new Date());
-        String[] htmlTransactionsReport = reconciliationReportGenerator.process(new Dataset[]{datasetOne, datasetTwo});
+        Dataset dataset = DATASET_GENERATOR.getDataset("nmbs", new Date(), new Date());
+        String htmlTransactionsReport = transactionReportGenerator.process(dataset);
         File target = FILE.findFileRecursively(new File("."), "target");
         if (target != null) {
-            FileUtils.write(new File(target, "reconciliation-report.html"), Arrays.toString(htmlTransactionsReport), Charset.defaultCharset());
+            FileUtils.write(new File(target, dataset.getName() + ".html"), htmlTransactionsReport, Charset.defaultCharset());
         }
     }
 

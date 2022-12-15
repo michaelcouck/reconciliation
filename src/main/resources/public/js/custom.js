@@ -37,3 +37,17 @@ function generateReconciliationReport() {
         alert('Error from server : ' + error);
     });
 }
+
+function generateTransactionReport() {
+    const form = document.querySelector('#transaction-report-form');
+    const formData = new FormData(form);
+    axios.post('/report/transaction-report',
+        formData,
+        {headers: {'Content-Type': 'multipart/form-data'}}
+    ).then(function (response) {
+        setElementContent("report-result", response.data);
+    }).catch(function (error) {
+        console.log(error);
+        alert('Error from server : ' + error);
+    });
+}
