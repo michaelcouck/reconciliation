@@ -33,16 +33,61 @@
         <hr>
         <br>
 
-        <th:block th:each="transaction : ${transactions}">
-            <div class="form-group row">
-                <label class="col-sm-3 form-control-label" th:text="'Transaction id: ' + ${transaction.BookingId}"></label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control form-control-success" disabled th:value="'Date: ' + ${transaction.PurchasedAtDate}"/>
-                    <input type="text" class="form-control form-control-success" disabled th:value="'Product: ' + ${transaction.ProductId}"/>
-                    <input type="text" class="form-control form-control-success" disabled th:value="'Amount: ' + ${transaction.GrossTransactionalAmount}"/>
+        <div class="card mb-0">
+            <div class="card-header">
+                <h3 class="h4 mb-0">Transactions & tickets</h3>
+            </div>
+            <div class="card-body pt-0">
+                <div class="table-responsive">
+                    <table class="table mb-0 table-striped table-hover table-sm">
+                        <thead>
+                        <tr>
+                            <th>Issuer</th>
+
+                            <th>Booking ID</th>
+                            <th>Purchase date</th>
+                            <th>Gross transaction amount</th>
+
+                            <th>Card/client ID</th>
+                            <th>Product</th>
+                            <th>Product description</th>
+                            <th>Total count</th>
+                            <th>Remaining</th>
+                            <th>Before consumption</th>
+                            <th>After consumption</th>
+                            <th>Value consumed</th>
+                            <th>Valid from</th>
+                            <th>Valid to</th>
+                            <th>First validated on</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="transaction : ${transactions}">
+                            <tr th:each="ticket : ${transaction.Tickets}">
+                                <td th:text="${ticket.Issuer}"></td>
+
+                                <td th:text="${transaction.BookingId}"></td>
+                                <td th:text="${transaction.PurchasedAtDate}"></td>
+                                <td th:text="${transaction.GrossTransactionalAmount}"></td>
+
+                                <td th:text="${ticket.CardId}"></td>
+                                <td th:text="${ticket.ProductId}"></td>
+                                <td th:text="${ticket.ProductDescription}"></td>
+                                <td th:text="${ticket.TotalCount}"></td>
+                                <td th:text="${ticket.Remaining}"></td>
+                                <td th:text="${ticket.TicketValueBeforeConsumption}"></td>
+                                <td th:text="${ticket.TicketValueAfterConsumption}"></td>
+                                <td th:text="${ticket.ConsumptionPrice}"></td>
+                                <td th:text="${ticket.ValidFrom}"></td>
+                                <td th:text="${ticket.ValidTo}"></td>
+                                <td th:text="${ticket.FirstValidatedOn}"></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </th:block>
+        </div>
 
         <hr>
 

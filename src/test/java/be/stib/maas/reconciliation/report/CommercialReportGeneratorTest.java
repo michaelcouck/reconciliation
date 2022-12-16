@@ -33,12 +33,11 @@ public class CommercialReportGeneratorTest extends AbstractTest {
     public void process() throws IOException {
         Dataset dataset = getDataset();
         String htmlTransactionsReport = commercialReportGenerator.process(dataset);
+
+        writeReport(htmlTransactionsReport, dataset);
+
         Assert.assertTrue(htmlTransactionsReport.contains("Total:"));
         Assert.assertTrue(htmlTransactionsReport.contains("34.0"));
-        File target = FILE.findFileRecursively(new File("."), "target");
-        if (target != null) {
-            FileUtils.write(new File(target, dataset.getName() + ".html"), htmlTransactionsReport, Charset.defaultCharset());
-        }
     }
 
     @Test

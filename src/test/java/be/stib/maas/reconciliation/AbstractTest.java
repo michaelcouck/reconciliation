@@ -1,29 +1,20 @@
 package be.stib.maas.reconciliation;
 
-import be.stib.maas.reconciliation.model.Transaction;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.math.RandomUtils;
+import be.stib.maas.reconciliation.model.Dataset;
+import be.stib.maas.reconciliation.toolkit.FILE;
+import org.apache.commons.io.FileUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 public abstract class AbstractTest {
 
-    public List<Transaction> getTransactions(final int size) {
-        List<Transaction> transactions = new ArrayList<>();
-        for (int i = size; i > 0; i--) {
-            Transaction transaction = getTransaction(
-                    new Date(RandomUtils.nextInt()),
-                    RandomStringUtils.random(8, "abcdefghijklmnopqrstuvwxyz"),
-                    RandomUtils.nextInt());
-            transactions.add(transaction);
+    public void writeReport(final String htmlReport, final Dataset dataset) throws IOException {
+        File target = FILE.findFileRecursively(new File("."), "target");
+        if (target != null) {
+            FileUtils.write(new File(target, dataset.getName() + ".html"), htmlReport, Charset.defaultCharset());
         }
-        return transactions;
-    }
-
-    Transaction getTransaction(final Date date, final String description, final int amount) {
-        return Transaction.builder().PurchasedAtDate(date.toString()).ProductId(description).GrossTransactionalAmount(amount).build();
     }
 
 }

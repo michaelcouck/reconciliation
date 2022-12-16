@@ -3,17 +3,13 @@ package be.stib.maas.reconciliation.report;
 import be.stib.maas.reconciliation.AbstractTest;
 import be.stib.maas.reconciliation.model.Dataset;
 import be.stib.maas.reconciliation.toolkit.DATASET_GENERATOR;
-import be.stib.maas.reconciliation.toolkit.FILE;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -33,10 +29,32 @@ public class ReconciliationReportGeneratorTest extends AbstractTest {
         Dataset datasetOne = DATASET_GENERATOR.getDataset("delijn", new Date(), new Date());
         Dataset datasetTwo = DATASET_GENERATOR.getDataset("ingenico", new Date(), new Date());
         String[] htmlTransactionsReport = reconciliationReportGenerator.process(new Dataset[]{datasetOne, datasetTwo});
-        File target = FILE.findFileRecursively(new File("."), "target");
-        if (target != null) {
-            FileUtils.write(new File(target, "reconciliation-report.html"), Arrays.toString(htmlTransactionsReport), Charset.defaultCharset());
-        }
+        writeReport(Arrays.toString(htmlTransactionsReport), datasetOne);
+    }
+
+    @Test
+    public void reconcileTransactions() throws IOException {
+
+        Date startDate = new Date();
+        Date endDate = new Date();
+
+        Dataset datasetOne = DATASET_GENERATOR.getDataset("nmbs", startDate, endDate);
+        Dataset datasetTwo = DATASET_GENERATOR.getDataset("worldline", startDate, endDate);
+
+        datasetOne.getTransactions().add(datasetTwo.getTransactions().get(0));
+        datasetTwo.getTransactions().add(datasetOne.getTransactions().get(5));
+
+        int sizeOne = datasetOne.getTransactions().size();
+        int sizeTwo = datasetTwo.getTransactions().size();
+        log.info("One : {}, two : {}", sizeOne, sizeTwo);
+
+        Dataset[] datasets = new Dataset[]{datasetOne, datasetTwo};
+        reconciliationReportGenerator.reconcileTransactions(datasets);
+
+        sizeOne = datasetOne.getTransactions().size();
+        sizeTwo = datasetTwo.getTransactions().size();
+        log.info("One : {}, two : {}", sizeOne, sizeTwo);
+
     }
 
 }
