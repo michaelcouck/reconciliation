@@ -51,3 +51,27 @@ function generateTransactionReport() {
         alert('Error from server : ' + error);
     });
 }
+
+function generateTransactionReportCsv() {
+    const form = document.querySelector('#transaction-report-form');
+    const formData = new FormData(form);
+    axios.post('/report/transaction-report-csv',
+        formData,
+        {headers: {'Content-Type': 'multipart/form-data'}}
+    ).then(function (response) {
+        downloadWriteFile(response);
+    }).catch(function (error) {
+        console.log(error);
+        alert('Error from server : ' + error);
+    });
+}
+
+function downloadWriteFile(response) {
+    const url = window.URL.createObjectURL(new Blob([response.data]))
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "transaction-report.csv"
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+}

@@ -22,6 +22,7 @@ public class TransactionReportGenerator implements Handler<Dataset, String> {
     @Override
     public String process(final Dataset dataset) {
         setTotals(dataset);
+        // TODO : Need to limit the data, if it is more than a million records then truncate the response
         return generateReport(dataset);
     }
 
